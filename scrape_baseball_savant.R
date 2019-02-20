@@ -5,12 +5,12 @@ install.packages("RMySQL")
 # CSV file with ID of each MLB player
 master <- read.csv("~/Desktop/Analyzing Baseball Data with R/master.csv")
 master_batters = subset(master, mlb_pos != "P")
-master_pitchers = subset(master, mlb_pos = "P")
+master_pitchers = subset(master, mlb_pos == "P")
 master_batting_lite = master_batters[0:3,]
 master_pitching_lite = master_pitchers[0:3,]
 
 # MLB Batter For Loop
-for(id in master_batting_lite$mlb_id){
+for(id in master_batters$mlb_id){
   player = read_html(paste0("https://baseballsavant.mlb.com/savant-player/", id))
   
   general_stats_batting = player %>%
@@ -108,12 +108,13 @@ for(id in master_batting_lite$mlb_id){
   statcast_outs_above_average
   statcast_running_statistics
   game_log_batting
-  Sys.sleep(2)
+  
+  Sys.sleep(5)
   
 }
 
 # MLB Pitcher For Loop
-for(id in master_pitching_lite$mlb_id){
+for(id in master_pitchers$mlb_id){
 player = read_html(paste0("https://baseballsavant.mlb.com/savant-player/", 572971))
 
 general_stats_pitching = player %>%
@@ -181,7 +182,10 @@ pitch_tracking_pitching
 plate_discipline_pitching
 batted_ball_profile_pitching
 statcast_shift_statistics_pitching
+
+Sys.sleep(5)
 }
 
-# MiLB Prospect For Loop
+# MiLB Prospect For Loop?
+
 
